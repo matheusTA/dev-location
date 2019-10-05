@@ -21,7 +21,7 @@ export const ListUsers = styled.ul`
 export const User = styled.li`
   display: flex;
   flex-direction: row;
-  padding: 5%;
+  padding: 3% 5% 3% 5%;
   align-items: center;
   border-bottom: 1px solid rgba(190, 190, 190, 0.6 );
 
