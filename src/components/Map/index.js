@@ -10,8 +10,8 @@ class Map extends Component {
       viewport: {
         width: window.innerWidth,
         height: window.innerHeight,
-        latitude: 37.78,
-        longitude: -122.41,
+        latitude: 0,
+        longitude: 0,
         zoom: 15,
       },
     };
@@ -20,6 +20,7 @@ class Map extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.resize);
     this.resize();
+    this.getLocationUser();
   }
 
   componentWillUnmount() {
@@ -36,6 +37,24 @@ class Map extends Component {
       },
     });
   };
+
+  getLocationUser = () => {
+    const { viewport } = this.state;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+          viewport: {
+            ...viewport,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+        });
+      });
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('Geolocation is not supported by this browser.');
+    }
+  }
 
   render() {
     const { viewport } = this.state;
