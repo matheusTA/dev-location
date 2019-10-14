@@ -1,8 +1,12 @@
 import React from 'react';
 import LeftBar from '../../components/LeftBar';
+import Map from '../../components/Map';
 
-const Home = () => (
-  <LeftBar />
-);
-
-export default Home;
+export default function Home() {
+  return (
+    <>
+      <Map />
+      <LeftBar />
+    </>
+  );
+}
