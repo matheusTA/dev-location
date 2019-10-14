@@ -16,7 +16,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "jsx-a11y", "import"],
+  "plugins": ["react", "jsx-a11y", "import", "react-hooks"],
   "rules": {
     "react/jsx-filename-extension": [
       "error",
@@ -33,6 +33,8 @@
       }
     ],
     "consistent-return": "off",
-    "no-useless-return": "off"
+    "no-useless-return": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
