@@ -17,6 +17,26 @@ class Map extends Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.resize);
+    this.resize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize);
+  }
+
+  resize = () => {
+    const { viewport } = this.state;
+    this.setState({
+      viewport: {
+        ...viewport,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      },
+    });
+  };
+
   render() {
     const { viewport } = this.state;
 
