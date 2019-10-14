@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background: #F5F5F5;
+  background: #DCDCDC;
   width: 20%;
   height: 90%;
   position: absolute;
@@ -49,5 +49,9 @@ export const UserInfo = styled.div`
     background: transparent;
     color: #E90C07;
     margin-right: 10px;
+  }
+
+  a {
+    color: #000;
   }
 `;
