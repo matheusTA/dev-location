@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background: #DCDCDC;
+  background: #FFF;
   width: 20%;
   height: 90%;
   position: absolute;
@@ -11,6 +11,7 @@ export const Container = styled.div`
   left: 2%;
   border-radius: 5px;
   overflow: auto;
+  border: 2px solid #DCDCDC
 `;
 
 export const ListUsers = styled.ul`
