@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
-import MapGL, { Marker } from 'react-map-gl';
+import MapGL, { Marker, GeolocateControl } from 'react-map-gl';
 import { Avatar } from './styles';
 
 class Map extends Component {
@@ -62,7 +62,6 @@ class Map extends Component {
     return (
       <MapGL
         {...viewport}
-        // mapStyle="mapbox://styles/mapbox/dark-v9"
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         onViewportChange={(viewportChange) => this.setState({ viewport: viewportChange })}
       >
@@ -75,6 +74,10 @@ class Map extends Component {
         >
           <Avatar src="https://avatars3.githubusercontent.com/u/35041966?s=460&v=4" alt="user" />
         </Marker>
+        <GeolocateControl
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation
+        />
       </MapGL>
     );
   }
