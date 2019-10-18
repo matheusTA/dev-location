@@ -4,7 +4,8 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-  visible: true,
+  visible: false,
+  cordinates: null,
 };
 
 export default function modal(state = INITIAL_STATE, action) {
@@ -12,10 +13,12 @@ export default function modal(state = INITIAL_STATE, action) {
     case Types.SHOW:
       return {
         visible: true,
+        cordinates: action.payload.cordinates,
       };
     case Types.HIDE:
       return {
         visible: false,
+        cordinates: null,
       };
     default:
       return state;
@@ -23,8 +26,9 @@ export default function modal(state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-  showModal: () => ({
+  showModal: (cordinates) => ({
     type: Types.SHOW,
+    payload: { cordinates },
   }),
 
   hideModal: () => ({

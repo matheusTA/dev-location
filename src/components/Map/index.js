@@ -1,6 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import MapGL, { Marker, GeolocateControl } from 'react-map-gl';
+import { Creators as ModalAddUserActions } from '../../store/ducks/modalAddUser';
 import { Avatar } from './styles';
 
 class Map extends Component {
@@ -56,6 +60,13 @@ class Map extends Component {
     }
   }
 
+  handleMapClick = async (event) => {
+    const [longitude, latitude] = event.lngLat;
+    const { showModal } = this.props;
+
+    await showModal({ latitude, longitude });
+  }
+
   render() {
     const { viewport } = this.state;
 
@@ -64,12 +75,13 @@ class Map extends Component {
         {...viewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         onViewportChange={(viewportChange) => this.setState({ viewport: viewportChange })}
+        onClick={this.handleMapClick}
       >
         <Marker
           latitude={37.78}
           longitude={-122.41}
-          offsetLeft={-20}
-          offsetTop={-10}
+        // offsetLeft={-20}
+        // offsetTop={-10}
         // key={viewport.longitude}
         >
           <Avatar src="https://avatars3.githubusercontent.com/u/35041966?s=460&v=4" alt="user" />
@@ -83,4 +95,15 @@ class Map extends Component {
   }
 }
 
-export default Map;
+Map.propTypes = {
+  showModal: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(ModalAddUserActions, dispatch);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
