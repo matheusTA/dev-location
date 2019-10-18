@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import 'antd/dist/antd.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GlobalStyle = createGlobalStyle`
   * {

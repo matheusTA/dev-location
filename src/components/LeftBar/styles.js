@@ -11,7 +11,11 @@ export const Container = styled.div`
   left: 2%;
   border-radius: 5px;
   overflow: auto;
-  border: 2px solid #DCDCDC
+  border: 2px solid #DCDCDC;
+
+  h4 {
+    margin: 10px 0 0 10px;
+  }
 `;
 
 export const ListUsers = styled.ul`
@@ -40,6 +44,10 @@ export const UserInfo = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  h2 {
+    margin: 0
+  }
 
   p {
     color: #666;

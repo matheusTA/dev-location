@@ -69,6 +69,7 @@ class Map extends Component {
 
   render() {
     const { viewport } = this.state;
+    const { users } = this.props;
 
     return (
       <MapGL
@@ -77,15 +78,15 @@ class Map extends Component {
         onViewportChange={(viewportChange) => this.setState({ viewport: viewportChange })}
         onClick={this.handleMapClick}
       >
-        <Marker
-          latitude={37.78}
-          longitude={-122.41}
-        // offsetLeft={-20}
-        // offsetTop={-10}
-        // key={viewport.longitude}
-        >
-          <Avatar src="https://avatars3.githubusercontent.com/u/35041966?s=460&v=4" alt="user" />
-        </Marker>
+        {users.data.map((user) => (
+          <Marker
+            latitude={user.cordinates.latitude}
+            longitude={user.cordinates.longitude}
+            key={user.id}
+          >
+            <Avatar src={user.avatar} alt={user.name} />
+          </Marker>
+        ))}
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation
@@ -97,10 +98,13 @@ class Map extends Component {
 
 Map.propTypes = {
   showModal: PropTypes.func.isRequired,
+  users: PropTypes.shape({
+    data: PropTypes.array,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-
+  users: state.users,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(ModalAddUserActions, dispatch);

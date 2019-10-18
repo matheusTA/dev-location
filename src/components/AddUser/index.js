@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Modal, Button, Input } from 'antd';
 import { Creators as ModalAddUserActions } from '../../store/ducks/modalAddUser';
+import { Creators as UsersActions } from '../../store/ducks/users';
 
 class AddUser extends Component {
   constructor(props) {
@@ -22,6 +23,26 @@ class AddUser extends Component {
     });
   }
 
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log('oioii');
+    const { loading } = this.props;
+
+    if (loading) return;
+
+    const { input } = this.state;
+
+    if (!input) return;
+
+    const {
+      addUserRequest,
+      modalAddUser: { cordinates },
+    } = this.props;
+
+    addUserRequest(input, cordinates);
+    this.setState({ input: '' });
+  }
+
   render() {
     const { modalAddUser } = this.props;
     const { input } = this.state;
@@ -36,20 +57,18 @@ class AddUser extends Component {
             <Button key="back" onClick={this.handleHideModal}>
               Cancelar
             </Button>,
-            <Button key="submit" type="primary">
+            <Button key="submit" type="primary" onClick={this.handleFormSubmit}>
               Ok
             </Button>,
           ]
         }
       >
-        <form>
-          <Input
-            type="text"
-            placeholder="Usuário do Github"
-            value={input}
-            onChange={(e) => { this.setState({ input: e.target.value }); }}
-          />
-        </form>
+        <Input
+          type="text"
+          placeholder="Usuário do Github"
+          value={input}
+          onChange={(e) => { this.setState({ input: e.target.value }); }}
+        />
       </Modal>
     );
   }
@@ -58,14 +77,20 @@ class AddUser extends Component {
 AddUser.propTypes = {
   modalAddUser: PropTypes.shape({
     visible: PropTypes.bool,
+    cordinates: PropTypes.shape().isRequired,
   }).isRequired,
   hideModal: PropTypes.func.isRequired,
+  addUserRequest: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   modalAddUser: state.modalAddUser,
+  loading: state.users.loading,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(ModalAddUserActions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+  { ...ModalAddUserActions, ...UsersActions }, dispatch,
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddUser);
