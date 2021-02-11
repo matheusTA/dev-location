@@ -58,7 +58,7 @@ class AddUser extends Component {
               Cancelar
             </Button>,
             <Button key="submit" type="primary" onClick={this.handleFormSubmit}>
-              Ok
+              Adicinar Rodrigo
             </Button>,
           ]
         }
